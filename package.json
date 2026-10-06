@@ -1,0 +1,25 @@
+{
+  "name": "ideacrop-chat-root",
+  "version": "1.0.0",
+  "description": "Production-ready Real-Time SMS-to-Chat Telecom Support Platform",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run dev --workspace=frontend\"",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "migrate": "npm run migrate --workspace=backend",
+    "seed": "npm run seed --workspace=backend",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "build": "npm run build --workspace=frontend",
+    "start": "npm run start --workspace=backend",
+    "serve": "npm run build && npm run start --workspace=backend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

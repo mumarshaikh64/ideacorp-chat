@@ -1,0 +1,31 @@
+<VirtualHost *:80>
+    ServerName chat.yourdomain.com
+    ServerAlias www.chat.yourdomain.com
+
+    ProxyPreserveHost On
+    ProxyRequests Off
+
+    # Enable WebSockets for Socket.IO Real-time Chat
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI}  ^/socket.io            [NC]
+    RewriteCond %{QUERY_STRING} transport=websocket    [NC]
+    RewriteRule /(.*)           ws://127.0.0.1:5001/$1 [P,L]
+
+    # Proxy WebSocket connections
+    ProxyPass /socket.io/ ws://127.0.0.1:5001/socket.io/
+    ProxyPassReverse /socket.io/ ws://127.0.0.1:5001/socket.io/
+
+    # Proxy standard HTTP / API / Static Requests
+    ProxyPass / http://127.0.0.1:5001/
+    ProxyPassReverse / http://127.0.0.1:5001/
+
+    # Forwarded headers
+    RequestHeader set X-Forwarded-Proto "http"
+    RequestHeader set X-Forwarded-Port "80"
+
+    # 24-hour timeout for long-lived WebSocket chat sessions
+    ProxyTimeout 86400
+
+    ErrorLog ${APACHE_LOG_DIR}/ideacrop_error.log
+    CustomLog ${APACHE_LOG_DIR}/ideacrop_access.log combined
+</VirtualHost>
