@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-    ServerName chat.yourdomain.com
-    ServerAlias www.chat.yourdomain.com
+    ServerName chat.ideacorp.website
+  # ServerAlias www.chat.ideacorp.website
 
     ProxyPreserveHost On
     ProxyRequests Off
