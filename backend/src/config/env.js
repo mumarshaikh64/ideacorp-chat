@@ -14,8 +14,7 @@ const env = {
   DB_PORT: parseInt(process.env.DB_PORT || '5432', 10),
   DB_USER: process.env.DB_USER || 'postgres',
   DB_PASSWORD: process.env.DB_PASSWORD || 'postgres',
-  DB_NAME: process.env.DB_NAME || 'ideacrop_chat',
-  DB_FALLBACK_SQLITE: process.env.DB_FALLBACK_SQLITE === 'true',
+  DB_FALLBACK_SQLITE: process.env.DB_FALLBACK_SQLITE !== 'false',
 
   // Redis
   REDIS_HOST: process.env.REDIS_HOST || 'localhost',
